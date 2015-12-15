@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html ng-app="Robokemon">
+    <head>
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+        <link rel="stylesheet" href="vendor/waves/waves.min.css" />
+        <link rel="stylesheet" href="vendor/wow/animate.css" />
+        <link rel="stylesheet" href="css/bootstrap.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/nativedroid2.css" />
+        <link rel="stylesheet" href="css/nativedroid2.color.blue-grey.css" />
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    </head>
+    <body ng-controller="login">
+    	<div class="fluid-container">
+    		<ul data-role="listview" data-icon="false">
+    	<li>
+    		<div class="row">
+    			<div id="loginHeader" class="col-xs-12"></div>
+			</div>
+		</li>
+    	<li>
+    		<div class="row">
+    			<div class="col-xs-8 col-xs-offset-2">
+					<input type="text" name="userName" id="userName" value="" data-clear-btn="true" placeholder="User name">
+				</div>
+			</div>
+		</li>
+		<li>
+			<div class="row">
+				<div class="col-xs-8 col-xs-offset-2">
+					<input type="password" name="password" id="password" value="" data-clear-btn="true" placeholder="Password">
+				</div>
+			</div>
+		</li>
+		<li>
+			<div style="margin-top: 10px;" class="row">
+				<div class="col-xs-8 col-xs-offset-2">
+					<button class="ui-btn-raised" id="loginButton">Login</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div class="row">
+				<div class="col-xs-8 col-xs-offset-2">
+					<span>No account? <button class="ui-btn-raised" id="registerButton">Register</button></span>
+				</div>
+			</div>
+		</li>
+		<li>
+    		<div class="row">
+    			<div id="loginFooter" class="col-xs-12"></div>
+			</div>
+		</li>
+	</ul>
+		</div>
+    </body>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="http://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+        <script src="http://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+        <script src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/jquery.mobile-1.4.5.min.js"></script>
+        <script src="vendor/waves/waves.min.js"></script>
+        <script src="vendor/wow/wow.min.js"></script>
+        <script src="js/nativedroid2.js"></script>
+        <script src="nd2settings.js"></script>
+
+        <script type="text/javascript">
+    	var app = angular.module("Robokemon", ["firebase"]);
+
+    	/*function authHandler(error, authData) {
+		  if (error) {
+		    console.log("Login Failed!", error);
+		  } else {
+		  	window.location.replace("./index.html");
+		    console.log("Authenticated successfully with payload:", authData);
+		  }
+		}; */
+
+		function getName(authData) {
+			switch(authData.provider) {
+			     case 'password':
+			       return authData.password.userName;
+			     case 'twitter':
+			       return authData.twitter.displayName;
+			     case 'facebook':
+			       return authData.facebook.displayName;
+		  	}
+		}
+
+		$('#registerButton').click(function() {
+			window.location.replace("./register.html");
+		})
+		app.controller("login", ["$scope", "$firebaseObject", "$firebaseAuth",
+	          function($scope, $firebaseObject, $firebaseAuth) {
+
+	            var ref = new Firebase("https://glowing-fire-4041.firebaseio.com");
+	            var obj = $firebaseObject(ref);
+	            $scope.auth = $firebaseAuth(ref);
+
+	            $('#loginButton').click(function() {
+		    		var userName = $('#userName').val();
+		    		var password = $('#password').val();
+			        var userRef = userRef;
+
+			        obj.$loaded().then(function() {
+		                $scope.auth.$authWithPassword({
+		                    email : userName,
+		                    password : password
+		                	}).then(function(authData) {
+								$scope.auth.$onAuth(function(authData) {
+				                    var userRef = ref.child("users").child(authData.uid);
+				                    userRef.once("value", function(snapshot) {
+				                        $scope.$apply(function() {
+				                            $scope.data = snapshot.val()
+				                        })
+				                    }).then(function() {
+				                    	window.location.replace("./index.html");
+				                    })
+				                })
+							}).catch(function(error) {
+							  console.error("Authentication failed:", error);
+							});
+		            	})
+				    });
+	        	}]);
+    </script>
+</html>

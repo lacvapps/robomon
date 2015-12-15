@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+        <link rel="stylesheet" href="vendor/waves/waves.min.css" />
+        <link rel="stylesheet" href="vendor/wow/animate.css" />
+        <link rel="stylesheet" href="css/bootstrap.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/nativedroid2.css" />
+        <link rel="stylesheet" href="css/nativedroid2.color.blue-grey.css" />
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    </head>
+    <body>
+        <div data-role="page" class="nd2-no-menu-swipe">
+            <div data-role="header" data-position="fixed" class="wow fadeIn clr-bg-grey">
+                <h1 class="wow fadeIn" data-wow-delay="0.4s">Robokemon</h1>
+                    <ul data-role="nd2tabs" data-swipe="true">
+                        <li data-tab="home" data-tab-active="true">Register</li>
+                    </ul>
+            </div>
+
+        <div role="main" class="ui-content wow fadeIn" data-inset="false" data-wow-delay="0.2s">
+
+                    <div data-role="nd2tab" data-tab="home">
+                        <ul data-role="listview" data-icon="false">
+                            <li>
+                                <input type="text" name="email" id="email" value="" data-clear-btn="true" placeholder="Email Address">
+                            </li>
+                            <li>
+                        		<input type="password" name="password" id="password" value="" data-clear-btn="true" placeholder="Password">
+                        	</li>
+                        	<li>
+                                <input type="password" name="confirmPassword" id="confirmPassword" value="" data-clear-btn="true" placeholder="Confirm Password">
+                            </li>
+                            <li>
+                        		<button class="ui-btn-raised" id="registerButton">Register</button>
+                        	<li>
+                        </ul>
+        			</div>
+        		</div>
+            </li>
+        </ul>
+    </div>
+</body>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="http://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+        <script src="http://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+        <script src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/jquery.mobile-1.4.5.min.js"></script>
+        <script src="vendor/waves/waves.min.js"></script>
+        <script src="vendor/wow/wow.min.js"></script>
+        <script src="js/nativedroid2.js"></script>
+        <script src="nd2settings.js"></script>
+
+        <script type="text/javascript">
+    	var ref = new Firebase("https://glowing-fire-4041.firebaseio.com/");
+
+        function getName(authData) {
+            switch(authData.provider) {
+                 case 'password':
+                   return authData.password.userName;
+                 case 'twitter':
+                   return authData.twitter.displayName;
+                 case 'facebook':
+                   return authData.facebook.displayName;
+            }
+        }
+
+        $('#registerButton').click(function() {
+            //Required Info
+            var userEmail = $('#email').val();
+            var userPassword = $('#password').val();
+            var confirmUserPassword = $('#confirmPassword').val();
+
+            //User Info
+            var userFullName = $('userFullName').val();
+            var userName = $('userName').val();
+
+            if (userPassword.length > 4 && userPassword === confirmUserPassword && userEmail != null) {
+                ref.createUser({
+                    email : userEmail,
+                    password : userPassword,
+                    newUser : false
+                }, function(error, userData) {
+                    if (error) {
+                        switch (error.code) {
+                          case "EMAIL_TAKEN":
+                            console.log("The new user account cannot be created because the email is already in use.");
+                            break;
+                          case "INVALID_EMAIL":
+                            console.log("The specified email is not a valid email.");
+                            break;
+                          default:
+                            console.log("Error creating user:", error);
+                        }
+                    } else {
+                        console.log("Successfully created user account with uid:", userData.uid);
+                        ref.authWithPassword({
+                            email: userEmail,
+                            password: userPassword
+                        }, function(error, authData) {
+                          if (error) {
+                            console.log("Login Failed!", error);
+                          } else {
+                            console.log("Authenticated successfully with payload:", authData);
+                            window.location.replace("./account-setup.html");
+                          }
+                        });
+                    }
+                })
+            } else if (userPassword != confirmUserPassword) {
+                console.log("Passwords do not match");
+            } else if (userEmail === null) {
+                console.log("Email is blank");
+            } else if (userPassword.length <= 4) {
+                console.log("Password is wrong");
+            }
+        });
+    </script>
+</html>

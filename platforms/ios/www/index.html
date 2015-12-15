@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html ng-app="Robokemon">
+    <head>
+        <title>Robokemon</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+        <link rel="stylesheet" href="vendor/waves/waves.min.css" />
+        <link rel="stylesheet" href="vendor/wow/animate.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/nativedroid2.css" />
+        <link rel="stylesheet" href="css/nativedroid2.color.blue-grey.css" />
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    </head>
+    <body class="clr-accent-red" ng-controller="profile">
+
+    <div data-role="page" class="nd2-no-menu-swipe">
+            <div data-role="panel" id="leftpanel" data-display="overlay" data-position-fixed="true" >
+
+                <div class='nd2-sidepanel-profile wow fadeInDown'>
+                    <img class='profile-background' src="img/bck.jpg" />
+                    <div class="row">
+                        <div class='col-xs-4 center-xs'>
+                            <div class='box'>
+                                <img class="profile-thumbnail" src="img/bio.png" />
+                            </div>
+                        </div>
+                        <div class='col-xs-8'>
+                            <div class='box profile-text'>
+                                <strong>Hello, {{data.fName}}</strong>
+                                <span class='subline'>{{data.userName}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <ul data-role="listview" data-inset="false">
+                    <li data-role="list-divider">Main</li>
+                </ul>
+                <div data-role="collapsible" data-inset="false"  data-collapsed-icon="carat-d" data-expanded-icon="carat-d" data-iconpos="right">
+                    <h3>Profile</h3>
+                    <ul data-role="listview" data-inset="false" data-icon="false">
+                        <li><a href="/examples/elements/text.html" data-ajax='false' data-icon="false">My Profile</a></li>
+                        <li><a href="/examples/elements/grid.html" data-ajax='false' data-icon="false">Stats</a></li>
+                        <li><a href="/examples/elements/buttons.html" data-ajax='false' data-icon="false">Friends</a></li>
+                        <li><a href="/examples/elements/header_footer.html" data-ajax='false'>Robokemon</a></li>
+                    </ul>
+                </div>
+                <div data-role="collapsible" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-d" data-iconpos="right">
+                    <h3>Battle</h3>
+                    <ul data-role="listview" data-icon="false">
+                        <li><a href="/examples/extended/tabs.html" data-ajax='false'>Duel</a></li>
+                        <li><a href="/examples/extended/cards.html" data-ajax='false'>Training</a></li>
+                        <li><a href="/examples/extended/search.html" data-ajax='false'>Search</a></li>
+                        <li><a href="/examples/extended/icons.html" data-ajax='false'>Control</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        <div data-role="header" data-position="fixed" class="wow fadeIn clr-bg-grey">
+            <a href="#leftpanel" class="ui-btn ui-btn-left"><i class="zmdi zmdi-menu"></i></a>
+            <h1 class="wow fadeIn" data-wow-delay="0.4s">Robokemon</h1>
+                <ul data-role="nd2tabs" data-swipe="true">
+                    <li data-tab="home" data-tab-active="true">Home</li>
+                    <li data-tab="battle">Battle</li>
+                    <li data-tab="stats">Stats</li>
+                    <li data-tab="settings">Settings</li>
+                </ul>
+        </div>
+
+        <div role="main" class="ui-content wow fadeIn" data-inset="false" data-wow-delay="0.2s">
+
+                    <div data-role="nd2tab" data-tab="home">
+                        <ul data-role="listview" data-icon="false">
+                            <li data-role="list-divider">
+                                Hello
+                            </li>
+                            <li>
+                                My Robokemon
+                            </li>
+                        </ul>
+                    </div>
+                    <div data-role="nd2tab" data-tab="battle">
+                        <ul data-role="listview" data-icon="false">
+                            <li data-role="list-divider">
+                                Hello
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <h2>Ethel Chancy</h2>
+                                    <p>ehtel.chancy@example.com</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div data-role="nd2tab" data-tab="stats">
+                        <ul data-role="listview" data-icon="false">
+                            <li data-role="list-divider">
+                                Hello
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <h2>Ethel Chancy</h2>
+                                    <p>ehtel.chancy@example.com</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div data-role="nd2tab" data-tab="settings">
+                        <ul data-role="listview" data-icon="false">
+                            <li data-role="list-divider">
+                                Settings
+                            </li>
+                            <li>
+                                <button class="ui-btn-raised" id="editProfile">Edit Profile</button>
+                            </br>
+                                <button class="ui-btn-raised" id="changeTheme">Change Theme</button>
+                            </li>
+                        </ul>
+                    </div>
+
+        </div>
+    </div>
+    </div>
+    </div>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="http://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+        <script src="http://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+        <script src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/jquery.mobile-1.4.5.min.js"></script>
+        <script src="vendor/waves/waves.min.js"></script>
+        <script src="vendor/wow/wow.min.js"></script>
+        <script src="js/nativedroid2.js"></script>
+        <script src="nd2settings.js"></script>
+
+        <script type="text/javascript">
+        $("#editProfile").click(function() {
+            window.location.replace("./account-setup.html");
+        })
+
+        var app = angular.module("Robokemon", ["firebase"]);
+        var userRef = userRef;
+
+        app.controller("profile", ["$scope", "$firebaseObject", "$firebaseAuth",
+          function($scope, $firebaseObject, $firebaseAuth) {
+
+            var ref = new Firebase("https://glowing-fire-4041.firebaseio.com");
+            $scope.auth = $firebaseAuth(ref);
+            var obj = $firebaseObject(ref);
+
+            obj.$loaded().then(function() {
+                $scope.auth.$onAuth(function(authData) {
+                    var userRef = ref.child("users").child(authData.uid);
+                    userRef.once("value", function(snapshot) {
+                        $scope.$apply(function() {
+                            $scope.data = snapshot.val()
+                        })
+                    })
+                })
+            })
+        }]);
+        </script>
+
+    </body>
+</html>

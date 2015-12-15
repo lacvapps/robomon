@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html ng-app="Robokemon">
+    <head>
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+        <link rel="stylesheet" href="vendor/waves/waves.min.css" />
+        <link rel="stylesheet" href="vendor/wow/animate.css" />
+        <link rel="stylesheet" href="css/bootstrap.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/nativedroid2.css" />
+        <link rel="stylesheet" href="css/nativedroid2.color.blue-grey.css" />
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    </head>
+    <body ng-controller="accountSetup">
+    	<div data-role="page" class="nd2-no-menu-swipe">
+            <div data-role="header" data-position="fixed" class="wow fadeIn clr-bg-grey">
+                <h1 class="wow fadeIn" data-wow-delay="0.4s">Robokemon</h1>
+                    <ul data-role="nd2tabs" data-swipe="true">
+                        <li data-tab="home" data-tab-active="true">Account Settings</li>
+                    </ul>
+            </div>
+
+        <div role="main" class="ui-content wow fadeIn" data-inset="false" data-wow-delay="0.2s">
+
+                    <div data-role="nd2tab" data-tab="home">
+                        <ul data-role="listview" data-icon="false">
+                            <li>
+                                <input type="text" name="fName" id="fName" value="" data-clear-btn="true" placeholder="First Name">
+                            </li>
+                            <li>
+                                <input type="text" name="lName" id="lName" value="" data-clear-btn="true" placeholder="Last Name">
+                            </li>
+                            <li>
+                				<input type="text" name="userName" id="userName" value="" data-clear-btn="true" placeholder="User Name">
+                			</li>
+                            <li>
+                				<button class="ui-btn-raised" id="finishButton">Submit</button>
+                			</li>
+                        </ul>
+        			</div>
+        		</div>
+    </body>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="http://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+        <script src="http://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+        <script src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/jquery.mobile-1.4.5.min.js"></script>
+        <script src="vendor/waves/waves.min.js"></script>
+        <script src="vendor/wow/wow.min.js"></script>
+        <script src="js/nativedroid2.js"></script>
+        <script src="nd2settings.js"></script>
+
+        <script type="text/javascript">
+        var app = angular.module("Robokemon", ["firebase"]);
+        var userRef = userRef;
+
+        app.controller("accountSetup", ["$scope", "$firebaseObject", "$firebaseAuth",
+              function($scope, $firebaseObject, $firebaseAuth) {
+
+                var ref = new Firebase("https://glowing-fire-4041.firebaseio.com");
+                $scope.auth = $firebaseAuth(ref);
+                var authData = $scope.auth.$getAuth();
+                var userRef = ref.child("users").child(authData.uid);
+
+                $("#finishButton").click(function() {
+                    var fName = $("#fName").val();
+                    var lName = $("#lName").val();
+                    var userName = $("#userName").val();
+
+                    var obj = $firebaseObject(userRef);
+
+                    if (fName.length > 1 && lName.length > 1 && userName.length > 1) {
+                        obj.$bindTo($scope, "data").then(function() {
+                          //console.log("Success");
+                          $scope.data.fName = fName;
+                          $scope.data.lName = lName;
+                          $scope.data.userName = userName;
+                          userRef.update({ fName: fName, lName: lName, userName: userName, setup: "true" });
+                          window.location.replace("./index.html");
+                        });
+                    } else {
+                        if (fName.length < 1) {
+                            console.log("First name cannout be blank");
+                        }
+                        if (lName.length < 1) {
+                            console.log("Last name cannout be blank");
+                        }
+                        if (userName.length < 1) {
+                            console.log("User Name cannout be blank");
+                        }
+                    }
+
+                })
+                var onComplete = function(error) {
+                  if (error) {
+                    console.log('Synchronization failed');
+                  } else {
+                    console.log('Synchronization succeeded');
+                  }
+                };
+            }
+        ]);
+
+
+
+        </script>
+</html>
