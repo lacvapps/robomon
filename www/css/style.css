@@ -2,6 +2,14 @@
 	text-align: center;
 }
 
+.center {
+    margin: 0px auto;
+}
+
+.white {
+    color: #fff;
+}
+
 input, textarea {
     border: 0px !important;
     color: #888 !important;
