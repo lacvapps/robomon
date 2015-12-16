@@ -15,48 +15,50 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     </head>
     <body ng-controller="login">
+    <div id="overlay">
     	<div class="fluid-container">
     		<ul data-role="listview" data-icon="false">
-    	<li>
+    	<li class="transparent">
     		<div class="row">
     			<div id="loginHeader" class="col-xs-12"></div>
 			</div>
 		</li>
-    	<li>
+    	<li class="transparent">
     		<div class="row">
     			<div class="col-xs-8 col-xs-offset-2">
 					<input type="text" name="userName" id="userName" value="" data-clear-btn="true" placeholder="User name">
 				</div>
 			</div>
 		</li>
-		<li>
+		<li class="transparent">
 			<div class="row">
 				<div class="col-xs-8 col-xs-offset-2">
 					<input type="password" name="password" id="password" value="" data-clear-btn="true" placeholder="Password">
 				</div>
 			</div>
 		</li>
-		<li>
+		<li class="transparent">
 			<div style="margin-top: 10px;" class="row">
 				<div class="col-xs-8 col-xs-offset-2">
 					<button class="ui-btn-raised" id="loginButton">Login</button>
 				</div>
 			</div>
 		</li>
-		<li>
+		<li class="transparent">
 			<div class="row">
 				<div class="col-xs-8 col-xs-offset-2">
 					<span>No account? <button class="ui-btn-raised" id="registerButton">Register</button></span>
 				</div>
 			</div>
 		</li>
-		<li>
+		<li class="transparent">
     		<div class="row">
     			<div id="loginFooter" class="col-xs-12"></div>
 			</div>
 		</li>
 	</ul>
 		</div>
+	</div>
     </body>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
         <script src="http://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>

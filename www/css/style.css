@@ -25,8 +25,8 @@ input, textarea {
 
 .ui-input-has-clear {
 	padding: 0px;
-	background-color: transparent !important;
-	border-color: transparent !important;
+    background-color: transparent !important;;
+    border-color: transparent !important;
 }
 
 .ui-page {
@@ -40,8 +40,11 @@ input, textarea {
 
 .ui-listview > .ui-li-static {
 	padding: 0.1em 1em !important;
-	background-color: transparent;
-	border-color: transparent !important;
+}
+
+.transparent {
+    background-color: transparent !important;;
+    border-color: transparent !important;
 }
 
 #loginHeader {
