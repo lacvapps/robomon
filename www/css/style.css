@@ -37,7 +37,7 @@ input, textarea {
     border-color: transparent !important;
 }
 
-.ui-page {
+.loginPage.ui-page {
 	background: url(../img/loginbg.jpg);
 	-webkit-background-size: cover !important;
     -moz-background-size: cover !important;

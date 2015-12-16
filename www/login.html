@@ -15,7 +15,8 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     </head>
     <body ng-controller="login">
-    <div id="overlay">
+
+    <div data-role="page" class="loginPage">
     	<div class="fluid-container">
     		<div class="row">
     			<div id="loginHeader" class="col-xs-12"></div>
@@ -119,14 +120,13 @@
 				                        $scope.$apply(function() {
 				                            $scope.data = snapshot.val()
 				                        })
-				                    }).then(function() {
-				                    	window.location.replace("./index.html");
 				                    })
+				                    window.location.replace("./index.html");
 				                })
 							}).catch(function(error) {
 							  console.error("Authentication failed:", error);
 							});
-		            	})
+		            	});
 				    });
 	        	}]);
     </script>
