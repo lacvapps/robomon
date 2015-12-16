@@ -72,7 +72,7 @@
                 </ul>
         </div>
 
-        <div role="main" class="ui-content wow fadeIn" data-inset="false" data-wow-delay="0.2s">
+        <div role="main" class="ui-content wow fadeIn fluid-container" data-inset="false" data-wow-delay="0.2s">
 
                     <div data-role="nd2tab" data-tab="home">
                         <ul data-role="listview" data-icon="false">
@@ -137,34 +137,7 @@
         <script src="vendor/wow/wow.min.js"></script>
         <script src="js/nativedroid2.js"></script>
         <script src="nd2settings.js"></script>
-
-        <script type="text/javascript">
-        $("#editProfile").click(function() {
-            window.location.replace("./account-setup.html");
-        })
-
-        var app = angular.module("Robokemon", ["firebase"]);
-        var userRef = userRef;
-
-        app.controller("profile", ["$scope", "$firebaseObject", "$firebaseAuth",
-          function($scope, $firebaseObject, $firebaseAuth) {
-
-            var ref = new Firebase("https://glowing-fire-4041.firebaseio.com");
-            $scope.auth = $firebaseAuth(ref);
-            var obj = $firebaseObject(ref);
-
-            obj.$loaded().then(function() {
-                $scope.auth.$onAuth(function(authData) {
-                    var userRef = ref.child("users").child(authData.uid);
-                    userRef.once("value", function(snapshot) {
-                        $scope.$apply(function() {
-                            $scope.data = snapshot.val()
-                        })
-                    })
-                })
-            })
-        }]);
-        </script>
+        <script src="js/app.js"></script>
 
     </body>
 </html>
