@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+
+    </head>
+    <body ng-controller="profile">
+    	<md-content layout-padding>
+            <div layout="row">
+                <div flex="30">
+                    <md-card class="card profilePicture">
+                        <img ng-src="img/bio.png">
+                    </md-card>
+                </div>
+                <div flex="70" layout="column">
+                    <div flex id="welcomeMessage"><h2> Welcome, {{data.fName}}</h2></div>
+                    <div flex> Friends Online: {{friends.online}} </div>
+                    <div flex> {{message.notification}} </div>
+                </div>
+            </div>
+		</md-content>
+    </body>
+</html>

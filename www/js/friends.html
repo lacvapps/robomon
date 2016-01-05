@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+
+    </head>
+    <body ng-controller="members">
+    	<md-content layout-padding>
+            <div layout="column">
+                <div flex>
+                    <md-card class="card profilePicture" ng-repeat="member in {{members}}">
+                        {{member.fName}}
+                    </md-card>
+                </div>
+            </div>
+		</md-content>
+    </body>
+</html>
